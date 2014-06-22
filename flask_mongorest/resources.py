@@ -218,7 +218,7 @@ class Resource(object):
                 else:
                     return field_value
             elif isinstance(field_instance, PointField):
-                return field_value.coordinates if field_value else field_value
+                return field_value['coordinates'] if field_value else field_value
             elif callable(field_instance):
                 if isinstance(field_value, list):
                     value = field_value
