@@ -9,7 +9,7 @@ from flask import request, url_for
 from urlparse import urlparse
 from mongoengine.base.proxy import DocumentProxy
 from mongoengine.fields import EmbeddedDocumentField, ListField, ReferenceField, GenericReferenceField
-from mongoengine.fields import DateTimeField, DictField
+from mongoengine.fields import DateTimeField, DictField, PointField
 from werkzeug.datastructures import MultiDict
 
 from cleancat import ValidationError as SchemaValidationError
@@ -222,6 +222,8 @@ class Resource(object):
                         for (key, elem) in field_value.iteritems())
                 else:
                     return field_value
+            elif isinstance(field_instance, PointField):
+                return field_value.coordinates if field_value else field_value
             elif callable(field_instance):
                 if isinstance(field_value, list):
                     value = field_value
